@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   IonButton,
   IonContent,
@@ -13,16 +13,22 @@ import "./Tab1.css";
 
 const Tab1: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
+  const pageRef = useRef<HTMLElement>(null);
   return (
-    <IonPage>
-      <IonHeader>
+    <IonPage ref={pageRef}>
+      <IonHeader className="ion-no-border">
         <IonToolbar>
           <IonTitle>Tab 1</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
         <ExploreContainer name="Tab 1 page" />
-        <IonModal isOpen={showModal} cssClass="my-custom-class">
+
+
+        <IonModal
+          cssClass="my-custom-class"
+          isOpen={showModal}
+          presentingElement={pageRef.current!}>
           <IonHeader>
             <IonToolbar>
               <IonTitle>Some Modal</IonTitle>
@@ -35,6 +41,8 @@ const Tab1: React.FC = () => {
             </IonButton>
           </IonContent>
         </IonModal>
+
+
         <IonButton onClick={() => setShowModal(true)}>Show Modal</IonButton>
       </IonContent>
     </IonPage>
